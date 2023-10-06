@@ -18,8 +18,8 @@ class FillLayer extends Layer {
     this.fillPattern,
     this.fillTranslate,
     this.fillTranslateAnchor,
-  }) : super(
-            id: id, visibility: visibility, maxZoom: maxZoom, minZoom: minZoom);
+    this.filter,
+  }) : super(id: id, visibility: visibility, maxZoom: maxZoom, minZoom: minZoom);
 
   @override
   String getType() => "fill";
@@ -40,7 +40,7 @@ class FillLayer extends Layer {
   int? fillColor;
 
   /// The opacity of the entire fill layer. In contrast to the `fill-color`, this value will also affect the 1px stroke around the fill, if the stroke is used.
-  double? fillOpacity;
+  dynamic fillOpacity;
 
   /// The outline color of the fill. Matches the value of `fill-color` if unspecified.
   int? fillOutlineColor;
@@ -54,12 +54,14 @@ class FillLayer extends Layer {
   /// Controls the frame of reference for `fill-translate`.
   FillTranslateAnchor? fillTranslateAnchor;
 
+  /// Filter expression that determines which features are rendered.
+  List? filter;
+
   @override
   String _encode() {
     var layout = {};
     if (visibility != null) {
-      layout["visibility"] =
-          visibility?.toString().split('.').last.toLowerCase();
+      layout["visibility"] = visibility?.toString().split('.').last.toLowerCase();
     }
     if (fillSortKey != null) {
       layout["fill-sort-key"] = fillSortKey;
@@ -84,8 +86,7 @@ class FillLayer extends Layer {
       paint["fill-translate"] = fillTranslate;
     }
     if (fillTranslateAnchor != null) {
-      paint["fill-translate-anchor"] =
-          fillTranslateAnchor?.toString().split('.').last.toLowerCase();
+      paint["fill-translate-anchor"] = fillTranslateAnchor?.toString().split('.').last.toLowerCase();
     }
     var properties = {
       "id": id,
@@ -102,6 +103,9 @@ class FillLayer extends Layer {
     }
     if (maxZoom != null) {
       properties["maxzoom"] = maxZoom!;
+    }
+    if (filter != null) {
+      properties["filter"] = filter!;
     }
 
     return json.encode(properties);
@@ -123,34 +127,19 @@ class FillLayer extends Layer {
       maxZoom: map["maxzoom"]?.toDouble(),
       visibility: map["layout"]["visibility"] == null
           ? Visibility.VISIBLE
-          : Visibility.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["visibility"])),
-      fillSortKey: map["layout"]["fill-sort-key"] is num?
-          ? (map["layout"]["fill-sort-key"] as num?)?.toDouble()
-          : null,
+          : Visibility.values
+              .firstWhere((e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["visibility"])),
+      fillSortKey: map["layout"]["fill-sort-key"] is num? ? (map["layout"]["fill-sort-key"] as num?)?.toDouble() : null,
       fillAntialias: map["paint"]["fill-antialias"],
       fillColor: (map["paint"]["fill-color"] as List?)?.toRGBAInt(),
-      fillOpacity: map["paint"]["fill-opacity"] is num?
-          ? (map["paint"]["fill-opacity"] as num?)?.toDouble()
-          : null,
-      fillOutlineColor:
-          (map["paint"]["fill-outline-color"] as List?)?.toRGBAInt(),
+      fillOpacity: map["paint"]["fill-opacity"],
+      fillOutlineColor: (map["paint"]["fill-outline-color"] as List?)?.toRGBAInt(),
       fillPattern: map["paint"]["fill-pattern"],
-      fillTranslate: (map["paint"]["fill-translate"] as List?)
-          ?.map<double?>((e) => e.toDouble())
-          .toList(),
+      fillTranslate: (map["paint"]["fill-translate"] as List?)?.map<double?>((e) => e.toDouble()).toList(),
       fillTranslateAnchor: map["paint"]["fill-translate-anchor"] == null
           ? null
-          : FillTranslateAnchor.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["paint"]["fill-translate-anchor"])),
+          : FillTranslateAnchor.values.firstWhere(
+              (e) => e.toString().split('.').last.toLowerCase().contains(map["paint"]["fill-translate-anchor"])),
     );
   }
 }

@@ -1,3 +1,10 @@
+# Fork du plugin Mapbox map (utilisé dans Skiif mobile)
+
+Ce projet est un fork du package officiel de mapbox pour flutter. Le fork permet de corriger certains problèmes et d'ajouter des fonctionnalités : 
+- Corrige le crash du package à cause d'un nombre trop important d'erreur après une déconnexion d'internet 
+- Ajoute des arguments (comme 'filter', 'textField' ou d'autres) aux différents layers
+- Modifie certains types arguments en dynamic (tel 'fillOpacity' ou d'autres) afin de fournir un tableau d'interpolation qui évolue avec le niveau de zoom plutot qu'une simple valeur.
+
 # Mapbox Maps SDK Flutter Plugin
 
 The Mapbox Maps SDK Flutter Plugin is an officially developed solution from Mapbox that enables use of our latest Maps SDK product (v10.13.0). It is currently in beta, but can be used in production. The plugin allows developers to embed highly customized maps using a Flutter widget on Android and iOS. 
