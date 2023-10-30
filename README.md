@@ -1,5 +1,7 @@
 # Fork du plugin Mapbox map (utilisé dans Skiif mobile)
 
+Pour update la main branch à partir du repo officiel, faire `git pull upstream main`
+
 Ce projet est un fork du package officiel de mapbox pour flutter. Le fork permet de corriger certains problèmes et d'ajouter des fonctionnalités : 
 - Corrige le crash du package à cause d'un nombre trop important d'erreur après une déconnexion d'internet 
 - Ajoute des arguments (comme 'filter', 'textField' ou d'autres) aux différents layers
