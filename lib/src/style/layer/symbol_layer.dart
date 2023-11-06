@@ -87,7 +87,7 @@ class SymbolLayer extends Layer {
   bool? iconIgnorePlacement;
 
   /// Name of image in sprite to use for drawing an image background.
-  String? iconImage;
+  dynamic iconImage;
 
   /// If true, the icon may be flipped to prevent it from being rendered upside-down.
   bool? iconKeepUpright;
