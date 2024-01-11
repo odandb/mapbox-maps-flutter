@@ -266,6 +266,6 @@ class MapInterfaceController: NSObject, FLT_MapInterface {
 
     func getElevationCoordinate(_ coordinate: [String: Any], error: AutoreleasingUnsafeMutablePointer<FlutterError?>) -> NSNumber? {
         let number = self.mapboxMap.elevation(at: convertDictionaryToCLLocationCoordinate2D(dict: coordinate)!)
-        return NSNumber(value: number!)
+        return NSNumber(value: number ?? 0)
     }
 }

@@ -27,8 +27,8 @@ class LineLayer extends Layer {
     this.lineTranslateAnchor,
     this.lineTrimOffset,
     this.lineWidth,
-  }) : super(
-            id: id, visibility: visibility, maxZoom: maxZoom, minZoom: minZoom);
+    this.filter,
+  }) : super(id: id, visibility: visibility, maxZoom: maxZoom, minZoom: minZoom);
 
   @override
   String getType() => "line";
@@ -73,7 +73,7 @@ class LineLayer extends Layer {
   double? lineOffset;
 
   /// The opacity at which the line will be drawn.
-  double? lineOpacity;
+  dynamic lineOpacity;
 
   /// Name of image in sprite to use for drawing image lines. For seamless patterns, image width must be a factor of two (2, 4, 8, ..., 512). Note that zoom-dependent expressions will be evaluated only at integer zoom levels.
   String? linePattern;
@@ -88,14 +88,16 @@ class LineLayer extends Layer {
   List<double?>? lineTrimOffset;
 
   /// Stroke thickness.
-  double? lineWidth;
+  dynamic lineWidth;
+
+  /// Filter expression that determines which features are rendered.
+  List? filter;
 
   @override
   String _encode() {
     var layout = {};
     if (visibility != null) {
-      layout["visibility"] =
-          visibility?.toString().split('.').last.toLowerCase();
+      layout["visibility"] = visibility?.toString().split('.').last.toLowerCase();
     }
     if (lineCap != null) {
       layout["line-cap"] = lineCap?.toString().split('.').last.toLowerCase();
@@ -141,8 +143,7 @@ class LineLayer extends Layer {
       paint["line-translate"] = lineTranslate;
     }
     if (lineTranslateAnchor != null) {
-      paint["line-translate-anchor"] =
-          lineTranslateAnchor?.toString().split('.').last.toLowerCase();
+      paint["line-translate-anchor"] = lineTranslateAnchor?.toString().split('.').last.toLowerCase();
     }
     if (lineTrimOffset != null) {
       paint["line-trim-offset"] = lineTrimOffset;
@@ -166,6 +167,9 @@ class LineLayer extends Layer {
     if (maxZoom != null) {
       properties["maxzoom"] = maxZoom!;
     }
+    if (filter != null) {
+      properties["filter"] = filter!;
+    }
 
     return json.encode(properties);
   }
@@ -186,74 +190,37 @@ class LineLayer extends Layer {
       maxZoom: map["maxzoom"]?.toDouble(),
       visibility: map["layout"]["visibility"] == null
           ? Visibility.VISIBLE
-          : Visibility.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["visibility"])),
+          : Visibility.values
+              .firstWhere((e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["visibility"])),
       lineCap: map["layout"]["line-cap"] == null
           ? null
-          : LineCap.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["line-cap"])),
+          : LineCap.values
+              .firstWhere((e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["line-cap"])),
       lineJoin: map["layout"]["line-join"] == null
           ? null
-          : LineJoin.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["line-join"])),
-      lineMiterLimit: map["layout"]["line-miter-limit"] is num?
-          ? (map["layout"]["line-miter-limit"] as num?)?.toDouble()
-          : null,
-      lineRoundLimit: map["layout"]["line-round-limit"] is num?
-          ? (map["layout"]["line-round-limit"] as num?)?.toDouble()
-          : null,
-      lineSortKey: map["layout"]["line-sort-key"] is num?
-          ? (map["layout"]["line-sort-key"] as num?)?.toDouble()
-          : null,
-      lineBlur: map["paint"]["line-blur"] is num?
-          ? (map["paint"]["line-blur"] as num?)?.toDouble()
-          : null,
+          : LineJoin.values
+              .firstWhere((e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["line-join"])),
+      lineMiterLimit:
+          map["layout"]["line-miter-limit"] is num? ? (map["layout"]["line-miter-limit"] as num?)?.toDouble() : null,
+      lineRoundLimit:
+          map["layout"]["line-round-limit"] is num? ? (map["layout"]["line-round-limit"] as num?)?.toDouble() : null,
+      lineSortKey: map["layout"]["line-sort-key"] is num? ? (map["layout"]["line-sort-key"] as num?)?.toDouble() : null,
+      lineBlur: map["paint"]["line-blur"] is num? ? (map["paint"]["line-blur"] as num?)?.toDouble() : null,
       lineColor: (map["paint"]["line-color"] as List?)?.toRGBAInt(),
-      lineDasharray: (map["paint"]["line-dasharray"] as List?)
-          ?.map<double?>((e) => e.toDouble())
-          .toList(),
-      lineGapWidth: map["paint"]["line-gap-width"] is num?
-          ? (map["paint"]["line-gap-width"] as num?)?.toDouble()
-          : null,
+      lineDasharray: (map["paint"]["line-dasharray"] as List?)?.map<double?>((e) => e.toDouble()).toList(),
+      lineGapWidth:
+          map["paint"]["line-gap-width"] is num? ? (map["paint"]["line-gap-width"] as num?)?.toDouble() : null,
       lineGradient: (map["paint"]["line-gradient"] as List?)?.toRGBAInt(),
-      lineOffset: map["paint"]["line-offset"] is num?
-          ? (map["paint"]["line-offset"] as num?)?.toDouble()
-          : null,
-      lineOpacity: map["paint"]["line-opacity"] is num?
-          ? (map["paint"]["line-opacity"] as num?)?.toDouble()
-          : null,
-      linePattern: map["paint"]["line-pattern"] is String?
-          ? map["paint"]["line-pattern"] as String?
-          : null,
-      lineTranslate: (map["paint"]["line-translate"] as List?)
-          ?.map<double?>((e) => e.toDouble())
-          .toList(),
+      lineOffset: map["paint"]["line-offset"] is num? ? (map["paint"]["line-offset"] as num?)?.toDouble() : null,
+      lineOpacity: map["paint"]["line-opacity"],
+      linePattern: map["paint"]["line-pattern"],
+      lineTranslate: (map["paint"]["line-translate"] as List?)?.map<double?>((e) => e.toDouble()).toList(),
       lineTranslateAnchor: map["paint"]["line-translate-anchor"] == null
           ? null
-          : LineTranslateAnchor.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["paint"]["line-translate-anchor"])),
-      lineTrimOffset: (map["paint"]["line-trim-offset"] as List?)
-          ?.map<double?>((e) => e.toDouble())
-          .toList(),
-      lineWidth: map["paint"]["line-width"] is num?
-          ? (map["paint"]["line-width"] as num?)?.toDouble()
-          : null,
+          : LineTranslateAnchor.values.firstWhere(
+              (e) => e.toString().split('.').last.toLowerCase().contains(map["paint"]["line-translate-anchor"])),
+      lineTrimOffset: (map["paint"]["line-trim-offset"] as List?)?.map<double?>((e) => e.toDouble()).toList(),
+      lineWidth: map["paint"]["line-width"],
     );
   }
 }

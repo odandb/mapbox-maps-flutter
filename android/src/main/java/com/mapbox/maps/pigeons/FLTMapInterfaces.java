@@ -5697,7 +5697,8 @@ public class FLTMapInterfaces {
 
                       public void error(Throwable error) {
                         ArrayList<Object> wrappedError = wrapError(error);
-                        reply.reply(wrappedError);
+                        // FIXME(all): Without connection, this line crash the app.
+                        // reply.reply(wrappedError);
                       }
                     };
 
