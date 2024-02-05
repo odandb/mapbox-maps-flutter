@@ -152,6 +152,9 @@ class MapboxMapController: NSObject, FlutterPlatformView {
         case "gesture#remove_listeners":
             gesturesController!.removeListeners()
             result(nil)
+        case "platform#releaseMethodChannels":
+            releaseMethodChannels()
+            result(nil)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -177,6 +180,22 @@ class MapboxMapController: NSObject, FlutterPlatformView {
             result = ""
         }
         return result
+    }
+
+    private func releaseMethodChannels() {   
+        channel.setMethodCallHandler(nil)
+        FLTStyleManagerSetup(proxyBinaryMessenger, nil) 
+        FLT_CameraManagerSetup(proxyBinaryMessenger, nil)
+        FLT_MapInterfaceSetup(proxyBinaryMessenger, nil)
+        FLTProjectionSetup(proxyBinaryMessenger, nil)
+        FLT_AnimationManagerSetup(proxyBinaryMessenger, nil)
+        FLT_SETTINGSLocationComponentSettingsInterfaceSetup(proxyBinaryMessenger, nil)
+        FLT_SETTINGSGesturesSettingsInterfaceSetup(proxyBinaryMessenger, nil)
+        FLT_SETTINGSLogoSettingsInterfaceSetup(proxyBinaryMessenger, nil)
+        FLT_SETTINGSAttributionSettingsInterfaceSetup(proxyBinaryMessenger, nil)
+        FLT_SETTINGSCompassSettingsInterfaceSetup(proxyBinaryMessenger, nil)
+        FLT_SETTINGSScaleBarSettingsInterfaceSetup(proxyBinaryMessenger, nil)
+       annotationController?.tearDown(messenger: proxyBinaryMessenger)
     }
 
     final class HttpUseragentInterceptor: HttpServiceInterceptorInterface {

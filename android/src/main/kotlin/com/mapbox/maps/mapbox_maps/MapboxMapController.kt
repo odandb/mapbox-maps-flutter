@@ -128,6 +128,9 @@ class MapboxMapController(
         gestureController.removeListeners()
         result.success(null)
       }
+      "platform#releaseMethodChannels" -> {
+        result.success(null)
+      }
       else -> {
         result.notImplemented()
       }
