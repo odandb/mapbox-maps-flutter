@@ -140,50 +140,39 @@ class MapboxMap extends ChangeNotifier {
   final OnStyleImageUnusedListener? onStyleImageUnusedListener;
 
   /// The currently loaded Style]object.
-  late StyleManager style =
-      StyleManager(binaryMessenger: _proxyBinaryMessenger);
+  late StyleManager style = StyleManager(binaryMessenger: _proxyBinaryMessenger);
 
   /// The interface to set the location puck.
   late LocationComponentSettingsInterface location =
-      LocationComponentSettingsInterface(
-          binaryMessenger: _proxyBinaryMessenger);
+      LocationComponentSettingsInterface(binaryMessenger: _proxyBinaryMessenger);
 
   late BinaryMessenger _proxyBinaryMessenger;
 
-  late _CameraManager _cameraManager =
-      _CameraManager(binaryMessenger: _proxyBinaryMessenger);
-  late _MapInterface _mapInterface =
-      _MapInterface(binaryMessenger: _proxyBinaryMessenger);
-  late _AnimationManager _animationManager =
-      _AnimationManager(binaryMessenger: _proxyBinaryMessenger);
+  late _CameraManager _cameraManager = _CameraManager(binaryMessenger: _proxyBinaryMessenger);
+  late _MapInterface _mapInterface = _MapInterface(binaryMessenger: _proxyBinaryMessenger);
+  late _AnimationManager _animationManager = _AnimationManager(binaryMessenger: _proxyBinaryMessenger);
 
   /// The interface to create and set annotations.
   late final _AnnotationManager annotations;
 
   // Keep Projection visible for users as iOS doesn't include it in MapboxMaps.
   /// The map projection of the style.
-  late Projection projection =
-      Projection(binaryMessenger: _proxyBinaryMessenger);
+  late Projection projection = Projection(binaryMessenger: _proxyBinaryMessenger);
 
   /// The interface to access the gesture settings.
-  late GesturesSettingsInterface gestures =
-      GesturesSettingsInterface(binaryMessenger: _proxyBinaryMessenger);
+  late GesturesSettingsInterface gestures = GesturesSettingsInterface(binaryMessenger: _proxyBinaryMessenger);
 
   /// The interface to set the logo settings.
-  late LogoSettingsInterface logo =
-      LogoSettingsInterface(binaryMessenger: _proxyBinaryMessenger);
+  late LogoSettingsInterface logo = LogoSettingsInterface(binaryMessenger: _proxyBinaryMessenger);
 
   /// The interface to access the compass settings.
-  late CompassSettingsInterface compass =
-      CompassSettingsInterface(binaryMessenger: _proxyBinaryMessenger);
+  late CompassSettingsInterface compass = CompassSettingsInterface(binaryMessenger: _proxyBinaryMessenger);
 
   /// The interface to access the compass settings.
-  late ScaleBarSettingsInterface scaleBar =
-      ScaleBarSettingsInterface(binaryMessenger: _proxyBinaryMessenger);
+  late ScaleBarSettingsInterface scaleBar = ScaleBarSettingsInterface(binaryMessenger: _proxyBinaryMessenger);
 
   /// The interface to access the attribution settings.
-  late AttributionSettingsInterface attribution =
-      AttributionSettingsInterface(binaryMessenger: _proxyBinaryMessenger);
+  late AttributionSettingsInterface attribution = AttributionSettingsInterface(binaryMessenger: _proxyBinaryMessenger);
 
   OnMapTapListener? onMapTapListener;
   OnMapLongTapListener? onMapLongTapListener;
@@ -191,10 +180,11 @@ class MapboxMap extends ChangeNotifier {
 
   @override
   void dispose() {
-    super.dispose();
     _mapboxMapsPlatform.dispose();
     _observersMap.clear();
     GestureListener.setup(null, binaryMessenger: _proxyBinaryMessenger);
+
+    super.dispose();
   }
 
   var _observersMap = Map<String, List<Observer>>();
@@ -239,16 +229,13 @@ class MapboxMap extends ChangeNotifier {
   }
 
   /// Convenience method that returns the `camera options` object for given parameters.
-  Future<CameraOptions> cameraForCoordinateBounds(CoordinateBounds bounds,
-          MbxEdgeInsets padding, double? bearing, double? pitch) =>
+  Future<CameraOptions> cameraForCoordinateBounds(
+          CoordinateBounds bounds, MbxEdgeInsets padding, double? bearing, double? pitch) =>
       _cameraManager.cameraForCoordinateBounds(bounds, padding, bearing, pitch);
 
   /// Convenience method that returns the `camera options` object for given parameters.
   Future<CameraOptions> cameraForCoordinates(
-          List<Map<String?, Object?>?> coordinates,
-          MbxEdgeInsets padding,
-          double? bearing,
-          double? pitch) =>
+          List<Map<String?, Object?>?> coordinates, MbxEdgeInsets padding, double? bearing, double? pitch) =>
       _cameraManager.cameraForCoordinates(coordinates, padding, bearing, pitch);
 
   /// Convenience method that adjusts the provided `camera options` object for given parameters.
@@ -259,15 +246,12 @@ class MapboxMap extends ChangeNotifier {
   /// Note that this method may fail if the principal point of the projection is not inside the `box` or
   /// if there is no sufficient screen space, defined by principal point and the `box`, to fit the geometry.
   Future<CameraOptions> cameraForCoordinatesCameraOptions(
-          List<Map<String?, Object?>?> coordinates,
-          CameraOptions camera,
-          ScreenBox box) =>
-      _cameraManager.cameraForCoordinatesCameraOptions(
-          coordinates, camera, box);
+          List<Map<String?, Object?>?> coordinates, CameraOptions camera, ScreenBox box) =>
+      _cameraManager.cameraForCoordinatesCameraOptions(coordinates, camera, box);
 
   /// Convenience method that returns the `camera options` object for given parameters.
-  Future<CameraOptions> cameraForGeometry(Map<String?, Object?> geometry,
-          MbxEdgeInsets padding, double? bearing, double? pitch) =>
+  Future<CameraOptions> cameraForGeometry(
+          Map<String?, Object?> geometry, MbxEdgeInsets padding, double? bearing, double? pitch) =>
       _cameraManager.cameraForGeometry(geometry, padding, bearing, pitch);
 
   /// Returns the `coordinate bounds` for a given camera.
@@ -275,23 +259,20 @@ class MapboxMap extends ChangeNotifier {
       _cameraManager.coordinateBoundsForCamera(camera);
 
   /// Returns the `coordinate bounds` for a given camera.
-  Future<CoordinateBounds> coordinateBoundsForCameraUnwrapped(
-          CameraOptions camera) =>
+  Future<CoordinateBounds> coordinateBoundsForCameraUnwrapped(CameraOptions camera) =>
       _cameraManager.coordinateBoundsForCameraUnwrapped(camera);
 
   /// Returns the `coordinate bounds` and the `zoom` for a given `camera`.
   ///
   /// Note that if the given `camera` shows the antimeridian, the returned wrapped `coordinate bounds`
   /// might not represent the minimum bounding box.
-  Future<CoordinateBoundsZoom> coordinateBoundsZoomForCamera(
-          CameraOptions camera) =>
+  Future<CoordinateBoundsZoom> coordinateBoundsZoomForCamera(CameraOptions camera) =>
       _cameraManager.coordinateBoundsZoomForCamera(camera);
 
   /// Returns the unwrapped `coordinate bounds` and `zoom` for a given `camera`.
   ///
   /// This method is useful if the `camera` shows the antimeridian.
-  Future<CoordinateBoundsZoom> coordinateBoundsZoomForCameraUnwrapped(
-          CameraOptions camera) =>
+  Future<CoordinateBoundsZoom> coordinateBoundsZoomForCameraUnwrapped(CameraOptions camera) =>
       _cameraManager.coordinateBoundsZoomForCameraUnwrapped(camera);
 
   /// Calculates a `screen coordinate` that corresponds to a geographical coordinate
@@ -299,8 +280,7 @@ class MapboxMap extends ChangeNotifier {
   ///
   /// The `screen coordinate` is in `logical pixels` relative to the top left corner
   /// of the map (not of the whole screen).
-  Future<ScreenCoordinate> pixelForCoordinate(
-          Map<String?, Object?> coordinate) =>
+  Future<ScreenCoordinate> pixelForCoordinate(Map<String?, Object?> coordinate) =>
       _cameraManager.pixelForCoordinate(coordinate);
 
   /// Calculates a geographical `coordinate` (i.e., longitude-latitude pair) that corresponds
@@ -308,16 +288,14 @@ class MapboxMap extends ChangeNotifier {
   ///
   /// The screen coordinate is in `logical pixels`relative to the top left corner
   /// of the map (not of the whole screen).
-  Future<Map<String?, Object?>> coordinateForPixel(ScreenCoordinate pixel) =>
-      _cameraManager.coordinateForPixel(pixel);
+  Future<Map<String?, Object?>> coordinateForPixel(ScreenCoordinate pixel) => _cameraManager.coordinateForPixel(pixel);
 
   /// Calculates `screen coordinates` that correspond to geographical `coordinates`
   /// (i.e., longitude-latitude pairs).
   ///
   /// The `screen coordinates` are in `logical pixels` relative to the top left corner
   /// of the map (not of the whole screen).
-  Future<List<ScreenCoordinate?>> pixelsForCoordinates(
-          List<Map<String?, Object?>?> coordinates) =>
+  Future<List<ScreenCoordinate?>> pixelsForCoordinates(List<Map<String?, Object?>?> coordinates) =>
       _cameraManager.pixelsForCoordinates(coordinates);
 
   /// Calculates geographical `coordinates` (i.e., longitude-latitude pairs) that correspond
@@ -325,16 +303,14 @@ class MapboxMap extends ChangeNotifier {
   ///
   /// The screen coordinates are in `logical pixels` relative to the top left corner
   /// of the map (not of the whole screen).
-  Future<List<Map<String?, Object?>?>> coordinatesForPixels(
-          List<ScreenCoordinate?> pixels) =>
+  Future<List<Map<String?, Object?>?>> coordinatesForPixels(List<ScreenCoordinate?> pixels) =>
       _cameraManager.coordinatesForPixels(pixels);
 
   /// Changes the map view by any combination of center, zoom, bearing, and pitch, without an animated transition.
   /// The map will retain its current values for any details not passed via the camera options argument.
   /// It is not guaranteed that the provided `camera options` will be set, the map may apply constraints resulting in a
   /// different `camera state`.
-  Future<void> setCamera(CameraOptions cameraOptions) =>
-      _cameraManager.setCamera(cameraOptions);
+  Future<void> setCamera(CameraOptions cameraOptions) => _cameraManager.setCamera(cameraOptions);
 
   /// Returns the current `camera state`.
   Future<CameraState> getCameraState() => _cameraManager.getCameraState();
@@ -344,19 +320,16 @@ class MapboxMap extends ChangeNotifier {
   /// When camera bounds options are set, the camera center is constrained by these bounds, as well as the minimum
   /// zoom level of the camera, to prevent out of bounds areas to be visible.
   /// Note that tilting or rotating the map, or setting stricter minimum and maximum zoom within `options` may still cause some out of bounds areas to become visible.
-  Future<void> setBounds(CameraBoundsOptions options) =>
-      _cameraManager.setBounds(options);
+  Future<void> setBounds(CameraBoundsOptions options) => _cameraManager.setBounds(options);
 
   /// Returns the `camera bounds` of the map.
   Future<CameraBounds> getBounds() => _cameraManager.getBounds();
 
   /// Prepares the drag gesture to use the provided screen coordinate as a pivot `point`. This function should be called each time when user starts a dragging action (e.g. by clicking on the map). The following dragging will be relative to the pivot.
-  Future<void> dragStart(ScreenCoordinate point) =>
-      _cameraManager.dragStart(point);
+  Future<void> dragStart(ScreenCoordinate point) => _cameraManager.dragStart(point);
 
   /// Calculates target point where camera should move after drag. The method should be called after `dragStart` and before `dragEnd`.
-  Future<CameraOptions> getDragCameraOptions(
-          ScreenCoordinate fromPoint, ScreenCoordinate toPoint) =>
+  Future<CameraOptions> getDragCameraOptions(ScreenCoordinate fromPoint, ScreenCoordinate toPoint) =>
       _cameraManager.getDragCameraOptions(fromPoint, toPoint);
 
   /// Ends the ongoing drag gesture. This function should be called always after the user has ended a drag gesture initiated by `dragStart`.
@@ -372,8 +345,7 @@ class MapboxMap extends ChangeNotifier {
   /// Tells the map rendering engine that there is currently a gesture in progress. This
   /// affects how the map renders labels, as it will use different texture filters if a gesture
   /// is ongoing.
-  Future<void> setGestureInProgress(bool inProgress) =>
-      _mapInterface.setGestureInProgress(inProgress);
+  Future<void> setGestureInProgress(bool inProgress) => _mapInterface.setGestureInProgress(inProgress);
 
   /// Returns `true` if a gesture is currently in progress.
   Future<bool> isGestureInProgress() => _mapInterface.isGestureInProgress();
@@ -381,33 +353,27 @@ class MapboxMap extends ChangeNotifier {
   /// Tells the map rendering engine that the animation is currently performed by the
   /// user (e.g. with a `setCamera` calls series). It adjusts the engine for the animation use case.
   /// In particular, it brings more stability to symbol placement and rendering.
-  Future<void> setUserAnimationInProgress(bool inProgress) =>
-      _mapInterface.setUserAnimationInProgress(inProgress);
+  Future<void> setUserAnimationInProgress(bool inProgress) => _mapInterface.setUserAnimationInProgress(inProgress);
 
   /// Returns `true` if user animation is currently in progress.
-  Future<bool> isUserAnimationInProgress() =>
-      _mapInterface.isUserAnimationInProgress();
+  Future<bool> isUserAnimationInProgress() => _mapInterface.isUserAnimationInProgress();
 
   /// When loading a map, if prefetch zoom `delta` is set to any number greater than 0,
   /// the map will first request a tile at zoom level lower than `zoom - delta`, with requested
   /// zoom level a multiple of `delta`, in an attempt to display a full map at lower resolution as quick as possible.
-  Future<void> setPrefetchZoomDelta(int delta) =>
-      _mapInterface.setPrefetchZoomDelta(delta);
+  Future<void> setPrefetchZoomDelta(int delta) => _mapInterface.setPrefetchZoomDelta(delta);
 
   /// Returns the map's prefetch zoom delta.
   Future<int> getPrefetchZoomDelta() => _mapInterface.getPrefetchZoomDelta();
 
   /// Sets the north `orientation mode`.
-  Future<void> setNorthOrientation(NorthOrientation orientation) =>
-      _mapInterface.setNorthOrientation(orientation);
+  Future<void> setNorthOrientation(NorthOrientation orientation) => _mapInterface.setNorthOrientation(orientation);
 
   /// Sets the map `constrain mode`.
-  Future<void> setConstrainMode(ConstrainMode mode) =>
-      _mapInterface.setConstrainMode(mode);
+  Future<void> setConstrainMode(ConstrainMode mode) => _mapInterface.setConstrainMode(mode);
 
   /// Sets the `viewport mode`.
-  Future<void> setViewportMode(ViewportMode mode) =>
-      _mapInterface.setViewportMode(mode);
+  Future<void> setViewportMode(ViewportMode mode) => _mapInterface.setViewportMode(mode);
 
   /// Returns the `map options`.
   Future<MapOptions> getMapOptions() => _mapInterface.getMapOptions();
@@ -416,34 +382,29 @@ class MapboxMap extends ChangeNotifier {
   Future<List<MapDebugOptions?>> getDebug() => _mapInterface.getDebug();
 
   /// Sets the `map debug options` and enables debug mode based on the passed value.
-  Future<void> setDebug(List<MapDebugOptions?> debugOptions, bool value) =>
-      _mapInterface.setDebug(debugOptions, value);
+  Future<void> setDebug(List<MapDebugOptions?> debugOptions, bool value) => _mapInterface.setDebug(debugOptions, value);
 
   /// Queries the map for rendered features.
-  Future<List<QueriedFeature?>> queryRenderedFeatures(
-          RenderedQueryGeometry geometry, RenderedQueryOptions options) =>
+  Future<List<QueriedFeature?>> queryRenderedFeatures(RenderedQueryGeometry geometry, RenderedQueryOptions options) =>
       _mapInterface.queryRenderedFeatures(geometry, options);
 
   /// Queries the map for source features.
-  Future<List<QueriedFeature?>> querySourceFeatures(
-          String sourceId, SourceQueryOptions options) =>
+  Future<List<QueriedFeature?>> querySourceFeatures(String sourceId, SourceQueryOptions options) =>
       _mapInterface.querySourceFeatures(sourceId, options);
 
   /// Returns all the leaves (original points) of a cluster (given its cluster_id) from a GeoJsonSource, with pagination support: limit is the number of leaves
   /// to return (set to Infinity for all points), and offset is the amount of points to skip (for pagination).
   ///
   /// Requires configuring the source as a cluster by calling [GeoJsonSource.Builder#cluster(boolean)].
-  Future<FeatureExtensionValue> getGeoJsonClusterLeaves(String sourceIdentifier,
-          Map<String?, Object?> cluster, int? limit, int? offset) =>
-      _mapInterface.getGeoJsonClusterLeaves(
-          sourceIdentifier, cluster, limit, offset);
+  Future<FeatureExtensionValue> getGeoJsonClusterLeaves(
+          String sourceIdentifier, Map<String?, Object?> cluster, int? limit, int? offset) =>
+      _mapInterface.getGeoJsonClusterLeaves(sourceIdentifier, cluster, limit, offset);
 
   /// Returns the children (original points or clusters) of a cluster (on the next zoom level)
   /// given its id (cluster_id value from feature properties) from a GeoJsonSource.
   ///
   /// Requires configuring the source as a cluster by calling [GeoJsonSource.Builder#cluster(boolean)].
-  Future<FeatureExtensionValue> getGeoJsonClusterChildren(
-          String sourceIdentifier, Map<String?, Object?> cluster) =>
+  Future<FeatureExtensionValue> getGeoJsonClusterChildren(String sourceIdentifier, Map<String?, Object?> cluster) =>
       _mapInterface.getGeoJsonClusterChildren(sourceIdentifier, cluster);
 
   /// Returns the zoom on which the cluster expands into several children (useful for "click to zoom" feature)
@@ -462,16 +423,14 @@ class MapboxMap extends ChangeNotifier {
   ///
   /// Note that updates to feature `state` are asynchronous, so changes made by this method might not be
   /// immediately visible using `getStateFeature`.
-  Future<void> setFeatureState(String sourceId, String? sourceLayerId,
-          String featureId, String state) =>
+  Future<void> setFeatureState(String sourceId, String? sourceLayerId, String featureId, String state) =>
       _mapInterface.setFeatureState(sourceId, sourceLayerId, featureId, state);
 
   /// Gets the state map of a feature within a style source.
   ///
   /// Note that updates to feature state are asynchronous, so changes made by other methods might not be
   /// immediately visible.
-  Future<String> getFeatureState(
-          String sourceId, String? sourceLayerId, String featureId) =>
+  Future<String> getFeatureState(String sourceId, String? sourceLayerId, String featureId) =>
       _mapInterface.getFeatureState(sourceId, sourceLayerId, featureId);
 
   /// Removes entries from a feature state object.
@@ -481,10 +440,8 @@ class MapboxMap extends ChangeNotifier {
   ///
   /// Note that updates to feature state are asynchronous, so changes made by this method might not be
   /// immediately visible using `getStateFeature`.
-  Future<void> removeFeatureState(String sourceId, String? sourceLayerId,
-          String featureId, String? stateKey) =>
-      _mapInterface.removeFeatureState(
-          sourceId, sourceLayerId, featureId, stateKey);
+  Future<void> removeFeatureState(String sourceId, String? sourceLayerId, String featureId, String? stateKey) =>
+      _mapInterface.removeFeatureState(sourceId, sourceLayerId, featureId, stateKey);
 
   /// Reduces memory use. Useful to call when the application gets paused or sent to background.
   Future<void> reduceMemoryUse() => _mapInterface.reduceMemoryUse();
@@ -494,13 +451,11 @@ class MapboxMap extends ChangeNotifier {
   /// All optional fields of the returned object are initialized with the actual values.
   ///
   /// Note that result of this method is different from the `resource options` that were provided to the map's constructor.
-  Future<ResourceOptions> getResourceOptions() =>
-      _mapInterface.getResourceOptions();
+  Future<ResourceOptions> getResourceOptions() => _mapInterface.getResourceOptions();
 
   /// Gets elevation for the given coordinate.
   /// Note: Elevation is only available for the visible region on the screen and with terrain enabled.
-  Future<double?> getElevation(Map<String?, Object?> coordinate) =>
-      _mapInterface.getElevation(coordinate);
+  Future<double?> getElevation(Map<String?, Object?> coordinate) => _mapInterface.getElevation(coordinate);
 
   /// Will load a new map style asynchronous from the specified URI.
   ///
@@ -524,13 +479,11 @@ class MapboxMap extends ChangeNotifier {
   /// loads the style from a file path. This is used to load a style from disk.
   ///
   /// Will load an empty json `{}` if the styleUri is empty.
-  Future<void> loadStyleURI(String styleURI) =>
-      _mapInterface.loadStyleURI(styleURI);
+  Future<void> loadStyleURI(String styleURI) => _mapInterface.loadStyleURI(styleURI);
 
   /// Loads a style from a JSON string, calling a completion closure when the
   /// style is fully loaded or there has been an error during load.
-  Future<void> loadStyleJson(String styleJson) =>
-      _mapInterface.loadStyleJson(styleJson);
+  Future<void> loadStyleJson(String styleJson) => _mapInterface.loadStyleJson(styleJson);
 
   /// Clears temporary map data.
   ///
@@ -552,49 +505,38 @@ class MapboxMap extends ChangeNotifier {
   /// If null is set, the memory budget in tile units will be dynamically calculated based on
   /// the current viewport size.
   Future<void> setMemoryBudget(
-          MapMemoryBudgetInMegabytes? mapMemoryBudgetInMegabytes,
-          MapMemoryBudgetInTiles? mapMemoryBudgetInTiles) =>
-      _mapInterface.setMemoryBudget(
-          mapMemoryBudgetInMegabytes, mapMemoryBudgetInTiles);
+          MapMemoryBudgetInMegabytes? mapMemoryBudgetInMegabytes, MapMemoryBudgetInTiles? mapMemoryBudgetInTiles) =>
+      _mapInterface.setMemoryBudget(mapMemoryBudgetInMegabytes, mapMemoryBudgetInTiles);
 
   /// Ease the map camera to a given camera options and animation options
-  Future<void> easeTo(CameraOptions cameraOptions,
-          MapAnimationOptions? mapAnimationOptions) =>
+  Future<void> easeTo(CameraOptions cameraOptions, MapAnimationOptions? mapAnimationOptions) =>
       _animationManager.easeTo(cameraOptions, mapAnimationOptions);
 
   /// Fly the map camera to a given camera options.
-  Future<void> flyTo(CameraOptions cameraOptions,
-          MapAnimationOptions? mapAnimationOptions) =>
+  Future<void> flyTo(CameraOptions cameraOptions, MapAnimationOptions? mapAnimationOptions) =>
       _animationManager.flyTo(cameraOptions, mapAnimationOptions);
 
   /// Pitch the map by with optional animation.
-  Future<void> pitchBy(
-          double pitch, MapAnimationOptions? mapAnimationOptions) =>
+  Future<void> pitchBy(double pitch, MapAnimationOptions? mapAnimationOptions) =>
       _animationManager.pitchBy(pitch, mapAnimationOptions);
 
   /// Scale the map by with optional animation.
-  Future<void> scaleBy(double amount, ScreenCoordinate? screenCoordinate,
-          MapAnimationOptions? mapAnimationOptions) =>
+  Future<void> scaleBy(double amount, ScreenCoordinate? screenCoordinate, MapAnimationOptions? mapAnimationOptions) =>
       _animationManager.scaleBy(amount, screenCoordinate, mapAnimationOptions);
 
   /// Move the map by a given screen coordinate with optional animation.
-  Future<void> moveBy(ScreenCoordinate screenCoordinate,
-          MapAnimationOptions? mapAnimationOptions) =>
+  Future<void> moveBy(ScreenCoordinate screenCoordinate, MapAnimationOptions? mapAnimationOptions) =>
       _animationManager.moveBy(screenCoordinate, mapAnimationOptions);
 
   /// Rotate the map by with optional animation.
-  Future<void> rotateBy(ScreenCoordinate first, ScreenCoordinate second,
-          MapAnimationOptions? mapAnimationOptions) =>
+  Future<void> rotateBy(ScreenCoordinate first, ScreenCoordinate second, MapAnimationOptions? mapAnimationOptions) =>
       _animationManager.rotateBy(first, second, mapAnimationOptions);
 
   /// Cancel the ongoing camera animation if there is one.
-  Future<void> cancelCameraAnimation() =>
-      _animationManager.cancelCameraAnimation();
+  Future<void> cancelCameraAnimation() => _animationManager.cancelCameraAnimation();
 
   void _setupGestures() {
-    if (onMapTapListener != null ||
-        onMapLongTapListener != null ||
-        onMapScrollListener != null) {
+    if (onMapTapListener != null || onMapLongTapListener != null || onMapScrollListener != null) {
       GestureListener.setup(
           _GestureListener(
             onMapTapListener: onMapTapListener,
