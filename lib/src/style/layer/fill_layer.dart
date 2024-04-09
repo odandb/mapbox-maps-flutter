@@ -20,12 +20,7 @@ class FillLayer extends Layer {
     this.fillPattern,
     this.fillTranslate,
     this.fillTranslateAnchor,
-  }) : super(
-            id: id,
-            visibility: visibility,
-            maxZoom: maxZoom,
-            minZoom: minZoom,
-            slot: slot);
+  }) : super(id: id, visibility: visibility, maxZoom: maxZoom, minZoom: minZoom, slot: slot);
 
   @override
   String getType() => "fill";
@@ -67,8 +62,7 @@ class FillLayer extends Layer {
   String _encode() {
     var layout = {};
     if (visibility != null) {
-      layout["visibility"] =
-          visibility?.toString().split('.').last.toLowerCase();
+      layout["visibility"] = visibility?.toString().split('.').last.toLowerCase();
     }
     if (fillSortKey != null) {
       layout["fill-sort-key"] = fillSortKey;
@@ -96,8 +90,7 @@ class FillLayer extends Layer {
       paint["fill-translate"] = fillTranslate;
     }
     if (fillTranslateAnchor != null) {
-      paint["fill-translate-anchor"] =
-          fillTranslateAnchor?.toString().split('.').last.toLowerCase();
+      paint["fill-translate-anchor"] = fillTranslateAnchor?.toString().split('.').last.toLowerCase();
     }
     var properties = {
       "id": id,
@@ -139,41 +132,22 @@ class FillLayer extends Layer {
       slot: map["slot"],
       visibility: map["layout"]["visibility"] == null
           ? Visibility.VISIBLE
-          : Visibility.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["visibility"])),
-      fillSortKey: map["layout"]["fill-sort-key"] is num?
-          ? (map["layout"]["fill-sort-key"] as num?)?.toDouble()
-          : null,
-      fillAntialias: map["paint"]["fill-antialias"] is bool?
-          ? map["paint"]["fill-antialias"] as bool?
-          : null,
+          : Visibility.values
+              .firstWhere((e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["visibility"])),
+      fillSortKey: map["layout"]["fill-sort-key"] is num? ? (map["layout"]["fill-sort-key"] as num?)?.toDouble() : null,
+      fillAntialias: map["paint"]["fill-antialias"] is bool? ? map["paint"]["fill-antialias"] as bool? : null,
       fillColor: (map["paint"]["fill-color"] as List?)?.toRGBAInt(),
       fillEmissiveStrength: map["paint"]["fill-emissive-strength"] is num?
           ? (map["paint"]["fill-emissive-strength"] as num?)?.toDouble()
           : null,
-      fillOpacity: map["paint"]["fill-opacity"] is num?
-          ? (map["paint"]["fill-opacity"] as num?)?.toDouble()
-          : null,
-      fillOutlineColor:
-          (map["paint"]["fill-outline-color"] as List?)?.toRGBAInt(),
-      fillPattern: map["paint"]["fill-pattern"] is String?
-          ? map["paint"]["fill-pattern"] as String?
-          : null,
-      fillTranslate: (map["paint"]["fill-translate"] as List?)
-          ?.map<double?>((e) => e.toDouble())
-          .toList(),
+      fillOpacity: map["paint"]["fill-opacity"] is num? ? (map["paint"]["fill-opacity"] as num?)?.toDouble() : null,
+      fillOutlineColor: (map["paint"]["fill-outline-color"] as List?)?.toRGBAInt(),
+      fillPattern: map["paint"]["fill-pattern"] is String? ? map["paint"]["fill-pattern"] as String? : null,
+      fillTranslate: (map["paint"]["fill-translate"] as List?)?.map<double?>((e) => e.toDouble()).toList(),
       fillTranslateAnchor: map["paint"]["fill-translate-anchor"] == null
           ? null
-          : FillTranslateAnchor.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["paint"]["fill-translate-anchor"])),
+          : FillTranslateAnchor.values.firstWhere(
+              (e) => e.toString().split('.').last.toLowerCase().contains(map["paint"]["fill-translate-anchor"])),
     );
   }
 }

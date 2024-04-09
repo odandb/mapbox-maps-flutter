@@ -70,12 +70,7 @@ class SymbolLayer extends Layer {
     this.textTranslate,
     this.textTranslateAnchor,
     this.textField,
-  }) : super(
-            id: id,
-            visibility: visibility,
-            maxZoom: maxZoom,
-            minZoom: minZoom,
-            slot: slot);
+  }) : super(id: id, visibility: visibility, maxZoom: maxZoom, minZoom: minZoom, slot: slot);
 
   @override
   String getType() => "symbol";
@@ -267,15 +262,13 @@ class SymbolLayer extends Layer {
   String _encode() {
     var layout = {};
     if (visibility != null) {
-      layout["visibility"] =
-          visibility?.toString().split('.').last.toLowerCase();
+      layout["visibility"] = visibility?.toString().split('.').last.toLowerCase();
     }
     if (iconAllowOverlap != null) {
       layout["icon-allow-overlap"] = iconAllowOverlap;
     }
     if (iconAnchor != null) {
-      layout["icon-anchor"] =
-          iconAnchor?.toString().split('.').last.toLowerCase();
+      layout["icon-anchor"] = iconAnchor?.toString().split('.').last.toLowerCase();
     }
     if (iconIgnorePlacement != null) {
       layout["icon-ignore-placement"] = iconIgnorePlacement;
@@ -296,22 +289,19 @@ class SymbolLayer extends Layer {
       layout["icon-padding"] = iconPadding;
     }
     if (iconPitchAlignment != null) {
-      layout["icon-pitch-alignment"] =
-          iconPitchAlignment?.toString().split('.').last.toLowerCase();
+      layout["icon-pitch-alignment"] = iconPitchAlignment?.toString().split('.').last.toLowerCase();
     }
     if (iconRotate != null) {
       layout["icon-rotate"] = iconRotate;
     }
     if (iconRotationAlignment != null) {
-      layout["icon-rotation-alignment"] =
-          iconRotationAlignment?.toString().split('.').last.toLowerCase();
+      layout["icon-rotation-alignment"] = iconRotationAlignment?.toString().split('.').last.toLowerCase();
     }
     if (iconSize != null) {
       layout["icon-size"] = iconSize;
     }
     if (iconTextFit != null) {
-      layout["icon-text-fit"] =
-          iconTextFit?.toString().split('.').last.toLowerCase();
+      layout["icon-text-fit"] = iconTextFit?.toString().split('.').last.toLowerCase();
     }
     if (iconTextFitPadding != null) {
       layout["icon-text-fit-padding"] = iconTextFitPadding;
@@ -320,8 +310,7 @@ class SymbolLayer extends Layer {
       layout["symbol-avoid-edges"] = symbolAvoidEdges;
     }
     if (symbolPlacement != null) {
-      layout["symbol-placement"] =
-          symbolPlacement?.toString().split('.').last.toLowerCase();
+      layout["symbol-placement"] = symbolPlacement?.toString().split('.').last.toLowerCase();
     }
     if (symbolSortKey != null) {
       layout["symbol-sort-key"] = symbolSortKey;
@@ -333,15 +322,13 @@ class SymbolLayer extends Layer {
       layout["symbol-z-elevate"] = symbolZElevate;
     }
     if (symbolZOrder != null) {
-      layout["symbol-z-order"] =
-          symbolZOrder?.toString().split('.').last.toLowerCase();
+      layout["symbol-z-order"] = symbolZOrder?.toString().split('.').last.toLowerCase();
     }
     if (textAllowOverlap != null) {
       layout["text-allow-overlap"] = textAllowOverlap;
     }
     if (textAnchor != null) {
-      layout["text-anchor"] =
-          textAnchor?.toString().split('.').last.toLowerCase();
+      layout["text-anchor"] = textAnchor?.toString().split('.').last.toLowerCase();
     }
     if (textFont != null) {
       layout["text-font"] = textFont;
@@ -350,8 +337,7 @@ class SymbolLayer extends Layer {
       layout["text-ignore-placement"] = textIgnorePlacement;
     }
     if (textJustify != null) {
-      layout["text-justify"] =
-          textJustify?.toString().split('.').last.toLowerCase();
+      layout["text-justify"] = textJustify?.toString().split('.').last.toLowerCase();
     }
     if (textKeepUpright != null) {
       layout["text-keep-upright"] = textKeepUpright;
@@ -378,8 +364,7 @@ class SymbolLayer extends Layer {
       layout["text-padding"] = textPadding;
     }
     if (textPitchAlignment != null) {
-      layout["text-pitch-alignment"] =
-          textPitchAlignment?.toString().split('.').last.toLowerCase();
+      layout["text-pitch-alignment"] = textPitchAlignment?.toString().split('.').last.toLowerCase();
     }
     if (textRadialOffset != null) {
       layout["text-radial-offset"] = textRadialOffset;
@@ -388,15 +373,13 @@ class SymbolLayer extends Layer {
       layout["text-rotate"] = textRotate;
     }
     if (textRotationAlignment != null) {
-      layout["text-rotation-alignment"] =
-          textRotationAlignment?.toString().split('.').last.toLowerCase();
+      layout["text-rotation-alignment"] = textRotationAlignment?.toString().split('.').last.toLowerCase();
     }
     if (textSize != null) {
       layout["text-size"] = textSize;
     }
     if (textTransform != null) {
-      layout["text-transform"] =
-          textTransform?.toString().split('.').last.toLowerCase();
+      layout["text-transform"] = textTransform?.toString().split('.').last.toLowerCase();
     }
     if (textVariableAnchor != null) {
       layout["text-variable-anchor"] = textVariableAnchor;
@@ -430,8 +413,7 @@ class SymbolLayer extends Layer {
       paint["icon-translate"] = iconTranslate;
     }
     if (iconTranslateAnchor != null) {
-      paint["icon-translate-anchor"] =
-          iconTranslateAnchor?.toString().split('.').last.toLowerCase();
+      paint["icon-translate-anchor"] = iconTranslateAnchor?.toString().split('.').last.toLowerCase();
     }
     if (textColor != null) {
       paint["text-color"] = textColor?.toRGBA();
@@ -455,8 +437,7 @@ class SymbolLayer extends Layer {
       paint["text-translate"] = textTranslate;
     }
     if (textTranslateAnchor != null) {
-      paint["text-translate-anchor"] =
-          textTranslateAnchor?.toString().split('.').last.toLowerCase();
+      paint["text-translate-anchor"] = textTranslateAnchor?.toString().split('.').last.toLowerCase();
     }
     var properties = {
       "id": id,
@@ -504,243 +485,129 @@ class SymbolLayer extends Layer {
       slot: map["slot"],
       visibility: map["layout"]["visibility"] == null
           ? Visibility.VISIBLE
-          : Visibility.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["visibility"])),
-      iconAllowOverlap: map["layout"]["icon-allow-overlap"] is bool?
-          ? map["layout"]["icon-allow-overlap"] as bool?
-          : null,
+          : Visibility.values
+              .firstWhere((e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["visibility"])),
+      iconAllowOverlap:
+          map["layout"]["icon-allow-overlap"] is bool? ? map["layout"]["icon-allow-overlap"] as bool? : null,
       iconAnchor: map["layout"]["icon-anchor"] == null
           ? null
-          : IconAnchor.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["icon-anchor"])),
-      iconIgnorePlacement: map["layout"]["icon-ignore-placement"] is bool?
-          ? map["layout"]["icon-ignore-placement"] as bool?
-          : null,
-      iconImage: map["layout"]["icon-image"] is String?
-          ? map["layout"]["icon-image"] as String?
-          : null,
-      iconKeepUpright: map["layout"]["icon-keep-upright"] is bool?
-          ? map["layout"]["icon-keep-upright"] as bool?
-          : null,
-      iconOffset: (map["layout"]["icon-offset"] as List?)
-          ?.map<double?>((e) => e.toDouble())
-          .toList(),
-      iconOptional: map["layout"]["icon-optional"] is bool?
-          ? map["layout"]["icon-optional"] as bool?
-          : null,
-      iconPadding: map["layout"]["icon-padding"] is num?
-          ? (map["layout"]["icon-padding"] as num?)?.toDouble()
-          : null,
+          : IconAnchor.values
+              .firstWhere((e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["icon-anchor"])),
+      iconIgnorePlacement:
+          map["layout"]["icon-ignore-placement"] is bool? ? map["layout"]["icon-ignore-placement"] as bool? : null,
+      iconImage: map["layout"]["icon-image"] is String? ? map["layout"]["icon-image"] as String? : null,
+      iconKeepUpright: map["layout"]["icon-keep-upright"] is bool? ? map["layout"]["icon-keep-upright"] as bool? : null,
+      iconOffset: (map["layout"]["icon-offset"] as List?)?.map<double?>((e) => e.toDouble()).toList(),
+      iconOptional: map["layout"]["icon-optional"] is bool? ? map["layout"]["icon-optional"] as bool? : null,
+      iconPadding: map["layout"]["icon-padding"] is num? ? (map["layout"]["icon-padding"] as num?)?.toDouble() : null,
       iconPitchAlignment: map["layout"]["icon-pitch-alignment"] == null
           ? null
-          : IconPitchAlignment.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["icon-pitch-alignment"])),
-      iconRotate: map["layout"]["icon-rotate"] is num?
-          ? (map["layout"]["icon-rotate"] as num?)?.toDouble()
-          : null,
+          : IconPitchAlignment.values.firstWhere(
+              (e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["icon-pitch-alignment"])),
+      iconRotate: map["layout"]["icon-rotate"] is num? ? (map["layout"]["icon-rotate"] as num?)?.toDouble() : null,
       iconRotationAlignment: map["layout"]["icon-rotation-alignment"] == null
           ? null
-          : IconRotationAlignment.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["icon-rotation-alignment"])),
-      iconSize: map["layout"]["icon-size"] is num?
-          ? (map["layout"]["icon-size"] as num?)?.toDouble()
-          : null,
+          : IconRotationAlignment.values.firstWhere(
+              (e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["icon-rotation-alignment"])),
+      iconSize: map["layout"]["icon-size"] is num? ? (map["layout"]["icon-size"] as num?)?.toDouble() : null,
       iconTextFit: map["layout"]["icon-text-fit"] == null
           ? null
-          : IconTextFit.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["icon-text-fit"])),
-      iconTextFitPadding: (map["layout"]["icon-text-fit-padding"] as List?)
-          ?.map<double?>((e) => e.toDouble())
-          .toList(),
-      symbolAvoidEdges: map["layout"]["symbol-avoid-edges"] is bool?
-          ? map["layout"]["symbol-avoid-edges"] as bool?
-          : null,
+          : IconTextFit.values
+              .firstWhere((e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["icon-text-fit"])),
+      iconTextFitPadding: (map["layout"]["icon-text-fit-padding"] as List?)?.map<double?>((e) => e.toDouble()).toList(),
+      symbolAvoidEdges:
+          map["layout"]["symbol-avoid-edges"] is bool? ? map["layout"]["symbol-avoid-edges"] as bool? : null,
       symbolPlacement: map["layout"]["symbol-placement"] == null
           ? null
-          : SymbolPlacement.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["symbol-placement"])),
-      symbolSortKey: map["layout"]["symbol-sort-key"] is num?
-          ? (map["layout"]["symbol-sort-key"] as num?)?.toDouble()
-          : null,
-      symbolSpacing: map["layout"]["symbol-spacing"] is num?
-          ? (map["layout"]["symbol-spacing"] as num?)?.toDouble()
-          : null,
-      symbolZElevate: map["layout"]["symbol-z-elevate"] is bool?
-          ? map["layout"]["symbol-z-elevate"] as bool?
-          : null,
+          : SymbolPlacement.values.firstWhere(
+              (e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["symbol-placement"])),
+      symbolSortKey:
+          map["layout"]["symbol-sort-key"] is num? ? (map["layout"]["symbol-sort-key"] as num?)?.toDouble() : null,
+      symbolSpacing:
+          map["layout"]["symbol-spacing"] is num? ? (map["layout"]["symbol-spacing"] as num?)?.toDouble() : null,
+      symbolZElevate: map["layout"]["symbol-z-elevate"] is bool? ? map["layout"]["symbol-z-elevate"] as bool? : null,
       symbolZOrder: map["layout"]["symbol-z-order"] == null
           ? null
-          : SymbolZOrder.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["symbol-z-order"])),
-      textAllowOverlap: map["layout"]["text-allow-overlap"] is bool?
-          ? map["layout"]["text-allow-overlap"] as bool?
-          : null,
+          : SymbolZOrder.values
+              .firstWhere((e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["symbol-z-order"])),
+      textAllowOverlap:
+          map["layout"]["text-allow-overlap"] is bool? ? map["layout"]["text-allow-overlap"] as bool? : null,
       textAnchor: map["layout"]["text-anchor"] == null
           ? null
-          : TextAnchor.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["text-anchor"])),
-      textFont: (map["layout"]["text-font"] as List?)
-          ?.map<String?>((e) => e.toString())
-          .toList(),
-      textIgnorePlacement: map["layout"]["text-ignore-placement"] is bool?
-          ? map["layout"]["text-ignore-placement"] as bool?
-          : null,
+          : TextAnchor.values
+              .firstWhere((e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["text-anchor"])),
+      textFont: (map["layout"]["text-font"] as List?)?.map<String?>((e) => e.toString()).toList(),
+      textIgnorePlacement:
+          map["layout"]["text-ignore-placement"] is bool? ? map["layout"]["text-ignore-placement"] as bool? : null,
       textJustify: map["layout"]["text-justify"] == null
           ? null
-          : TextJustify.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["text-justify"])),
-      textKeepUpright: map["layout"]["text-keep-upright"] is bool?
-          ? map["layout"]["text-keep-upright"] as bool?
-          : null,
+          : TextJustify.values
+              .firstWhere((e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["text-justify"])),
+      textKeepUpright: map["layout"]["text-keep-upright"] is bool? ? map["layout"]["text-keep-upright"] as bool? : null,
       textLetterSpacing: map["layout"]["text-letter-spacing"] is num?
           ? (map["layout"]["text-letter-spacing"] as num?)?.toDouble()
           : null,
-      textLineHeight: map["layout"]["text-line-height"] is num?
-          ? (map["layout"]["text-line-height"] as num?)?.toDouble()
-          : null,
-      textMaxAngle: map["layout"]["text-max-angle"] is num?
-          ? (map["layout"]["text-max-angle"] as num?)?.toDouble()
-          : null,
-      textMaxWidth: map["layout"]["text-max-width"] is num?
-          ? (map["layout"]["text-max-width"] as num?)?.toDouble()
-          : null,
-      textOffset: (map["layout"]["text-offset"] as List?)
-          ?.map<double?>((e) => e.toDouble())
-          .toList(),
-      textOptional: map["layout"]["text-optional"] is bool?
-          ? map["layout"]["text-optional"] as bool?
-          : null,
-      textPadding: map["layout"]["text-padding"] is num?
-          ? (map["layout"]["text-padding"] as num?)?.toDouble()
-          : null,
+      textLineHeight:
+          map["layout"]["text-line-height"] is num? ? (map["layout"]["text-line-height"] as num?)?.toDouble() : null,
+      textMaxAngle:
+          map["layout"]["text-max-angle"] is num? ? (map["layout"]["text-max-angle"] as num?)?.toDouble() : null,
+      textMaxWidth:
+          map["layout"]["text-max-width"] is num? ? (map["layout"]["text-max-width"] as num?)?.toDouble() : null,
+      textOffset: (map["layout"]["text-offset"] as List?)?.map<double?>((e) => e.toDouble()).toList(),
+      textOptional: map["layout"]["text-optional"] is bool? ? map["layout"]["text-optional"] as bool? : null,
+      textPadding: map["layout"]["text-padding"] is num? ? (map["layout"]["text-padding"] as num?)?.toDouble() : null,
       textPitchAlignment: map["layout"]["text-pitch-alignment"] == null
           ? null
-          : TextPitchAlignment.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["text-pitch-alignment"])),
+          : TextPitchAlignment.values.firstWhere(
+              (e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["text-pitch-alignment"])),
       textRadialOffset: map["layout"]["text-radial-offset"] is num?
           ? (map["layout"]["text-radial-offset"] as num?)?.toDouble()
           : null,
-      textRotate: map["layout"]["text-rotate"] is num?
-          ? (map["layout"]["text-rotate"] as num?)?.toDouble()
-          : null,
+      textRotate: map["layout"]["text-rotate"] is num? ? (map["layout"]["text-rotate"] as num?)?.toDouble() : null,
       textRotationAlignment: map["layout"]["text-rotation-alignment"] == null
           ? null
-          : TextRotationAlignment.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["text-rotation-alignment"])),
-      textSize: map["layout"]["text-size"] is num?
-          ? (map["layout"]["text-size"] as num?)?.toDouble()
-          : null,
+          : TextRotationAlignment.values.firstWhere(
+              (e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["text-rotation-alignment"])),
+      textSize: map["layout"]["text-size"] is num? ? (map["layout"]["text-size"] as num?)?.toDouble() : null,
       textTransform: map["layout"]["text-transform"] == null
           ? null
-          : TextTransform.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["layout"]["text-transform"])),
-      textVariableAnchor: (map["layout"]["text-variable-anchor"] as List?)
-          ?.map<String?>((e) => e.toString())
-          .toList(),
-      textWritingMode: (map["layout"]["text-writing-mode"] as List?)
-          ?.map<String?>((e) => e.toString())
-          .toList(),
+          : TextTransform.values
+              .firstWhere((e) => e.toString().split('.').last.toLowerCase().contains(map["layout"]["text-transform"])),
+      textVariableAnchor: (map["layout"]["text-variable-anchor"] as List?)?.map<String?>((e) => e.toString()).toList(),
+      textWritingMode: (map["layout"]["text-writing-mode"] as List?)?.map<String?>((e) => e.toString()).toList(),
       iconColor: (map["paint"]["icon-color"] as List?)?.toRGBAInt(),
       iconEmissiveStrength: map["paint"]["icon-emissive-strength"] is num?
           ? (map["paint"]["icon-emissive-strength"] as num?)?.toDouble()
           : null,
-      iconHaloBlur: map["paint"]["icon-halo-blur"] is num?
-          ? (map["paint"]["icon-halo-blur"] as num?)?.toDouble()
-          : null,
+      iconHaloBlur:
+          map["paint"]["icon-halo-blur"] is num? ? (map["paint"]["icon-halo-blur"] as num?)?.toDouble() : null,
       iconHaloColor: (map["paint"]["icon-halo-color"] as List?)?.toRGBAInt(),
-      iconHaloWidth: map["paint"]["icon-halo-width"] is num?
-          ? (map["paint"]["icon-halo-width"] as num?)?.toDouble()
-          : null,
+      iconHaloWidth:
+          map["paint"]["icon-halo-width"] is num? ? (map["paint"]["icon-halo-width"] as num?)?.toDouble() : null,
       iconImageCrossFade: map["paint"]["icon-image-cross-fade"] is num?
           ? (map["paint"]["icon-image-cross-fade"] as num?)?.toDouble()
           : null,
-      iconOpacity: map["paint"]["icon-opacity"] is num?
-          ? (map["paint"]["icon-opacity"] as num?)?.toDouble()
-          : null,
-      iconTranslate: (map["paint"]["icon-translate"] as List?)
-          ?.map<double?>((e) => e.toDouble())
-          .toList(),
+      iconOpacity: map["paint"]["icon-opacity"] is num? ? (map["paint"]["icon-opacity"] as num?)?.toDouble() : null,
+      iconTranslate: (map["paint"]["icon-translate"] as List?)?.map<double?>((e) => e.toDouble()).toList(),
       iconTranslateAnchor: map["paint"]["icon-translate-anchor"] == null
           ? null
-          : IconTranslateAnchor.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["paint"]["icon-translate-anchor"])),
+          : IconTranslateAnchor.values.firstWhere(
+              (e) => e.toString().split('.').last.toLowerCase().contains(map["paint"]["icon-translate-anchor"])),
       textColor: (map["paint"]["text-color"] as List?)?.toRGBAInt(),
       textEmissiveStrength: map["paint"]["text-emissive-strength"] is num?
           ? (map["paint"]["text-emissive-strength"] as num?)?.toDouble()
           : null,
-      textHaloBlur: map["paint"]["text-halo-blur"] is num?
-          ? (map["paint"]["text-halo-blur"] as num?)?.toDouble()
-          : null,
+      textHaloBlur:
+          map["paint"]["text-halo-blur"] is num? ? (map["paint"]["text-halo-blur"] as num?)?.toDouble() : null,
       textHaloColor: (map["paint"]["text-halo-color"] as List?)?.toRGBAInt(),
-      textHaloWidth: map["paint"]["text-halo-width"] is num?
-          ? (map["paint"]["text-halo-width"] as num?)?.toDouble()
-          : null,
-      textOpacity: map["paint"]["text-opacity"] is num?
-          ? (map["paint"]["text-opacity"] as num?)?.toDouble()
-          : null,
-      textTranslate: (map["paint"]["text-translate"] as List?)
-          ?.map<double?>((e) => e.toDouble())
-          .toList(),
+      textHaloWidth:
+          map["paint"]["text-halo-width"] is num? ? (map["paint"]["text-halo-width"] as num?)?.toDouble() : null,
+      textOpacity: map["paint"]["text-opacity"] is num? ? (map["paint"]["text-opacity"] as num?)?.toDouble() : null,
+      textTranslate: (map["paint"]["text-translate"] as List?)?.map<double?>((e) => e.toDouble()).toList(),
       textTranslateAnchor: map["paint"]["text-translate-anchor"] == null
           ? null
-          : TextTranslateAnchor.values.firstWhere((e) => e
-              .toString()
-              .split('.')
-              .last
-              .toLowerCase()
-              .contains(map["paint"]["text-translate-anchor"])),
+          : TextTranslateAnchor.values.firstWhere(
+              (e) => e.toString().split('.').last.toLowerCase().contains(map["paint"]["text-translate-anchor"])),
     );
   }
 }
