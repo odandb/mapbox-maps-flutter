@@ -70,6 +70,7 @@ class SymbolLayer extends Layer {
     this.textTranslate,
     this.textTranslateAnchor,
     this.textField,
+    this.filter,
   }) : super(id: id, visibility: visibility, maxZoom: maxZoom, minZoom: minZoom, slot: slot);
 
   @override
@@ -257,6 +258,9 @@ class SymbolLayer extends Layer {
 
   /// Text label
   String? textField;
+
+  /// Filter expression that determines which features are rendered.
+  List? filter;
 
   @override
   String _encode() {
@@ -463,6 +467,9 @@ class SymbolLayer extends Layer {
     }
     if (slot != null) {
       properties["slot"] = slot!;
+    }
+    if (filter != null) {
+      properties["filter"] = filter!;
     }
 
     return json.encode(properties);

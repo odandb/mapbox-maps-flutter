@@ -32,6 +32,7 @@ class LineLayer extends Layer {
     this.lineTranslateAnchor,
     this.lineTrimOffset,
     this.lineWidth,
+    this.filter,
   }) : super(id: id, visibility: visibility, maxZoom: maxZoom, minZoom: minZoom, slot: slot);
 
   @override
@@ -105,6 +106,9 @@ class LineLayer extends Layer {
 
   /// Stroke thickness.
   dynamic lineWidth;
+
+  /// Filter expression that determines which features are rendered.
+  List? filter;
 
   @override
   String _encode() {
@@ -194,6 +198,9 @@ class LineLayer extends Layer {
     }
     if (slot != null) {
       properties["slot"] = slot!;
+    }
+    if (filter != null) {
+      properties["filter"] = filter!;
     }
 
     return json.encode(properties);
