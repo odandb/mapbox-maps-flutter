@@ -61,7 +61,8 @@ class LineLayer extends Layer {
   /// The color with which the line will be drawn.
   int? lineColor;
 
-  /// The colors interpolated
+  /// The interpolated color
+  /// Needs to call "toRGBA()" before-hand for it to work
   List<dynamic>? lineColors;
 
   /// Specifies the lengths of the alternating dashes and gaps that form the dash pattern. The lengths are later scaled by the line width. To convert a dash length to pixels, multiply the length by the current line width. Note that GeoJSON sources with `lineMetrics: true` specified won't render dashed lines to the expected scale. Also note that zoom-dependent expressions will be evaluated only at integer zoom levels.
@@ -214,7 +215,7 @@ class LineLayer extends Layer {
       lineSortKey: map["layout"]["line-sort-key"] is num? ? (map["layout"]["line-sort-key"] as num?)?.toDouble() : null,
       lineBlur: map["paint"]["line-blur"] is num? ? (map["paint"]["line-blur"] as num?)?.toDouble() : null,
       lineColor: (map["paint"]["line-color"] as List?)?.toRGBAInt(),
-      lineColors: (map["paint"]["line-color"] as List?),
+      lineColors: map["paint"]["line-color"] as List?,
       lineDasharray: (map["paint"]["line-dasharray"] as List?)?.map<double?>((e) => e.toDouble()).toList(),
       lineGapWidth:
           map["paint"]["line-gap-width"] is num? ? (map["paint"]["line-gap-width"] as num?)?.toDouble() : null,
